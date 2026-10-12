@@ -1,19 +1,37 @@
-# TM Snake Game
+# TM Snake
 
-A browser-based Snake Game project built as a practice project for strengthening JavaScript fundamentals and interactive web development.
+A playable, responsive browser Snake game built with vanilla HTML, CSS, and JavaScript.
 
-## 🛠️ Tech Stack
+## Features
 
-- HTML5
-- CSS3
-- JavaScript
+- Keyboard controls: arrow keys or WASD
+- Touch-friendly direction controls for mobile
+- Score and best-score tracking
+- Pause, resume, restart, and game-over states
+- Responsive board with a clean dark interface
+- Best score saved locally in the browser when storage is available
 
-## 🎯 Project Goal
+## Run locally
 
-Practice game logic, DOM interaction, keyboard controls, score handling, and browser-based UI development.
+1. Download or clone this repository.
+2. Open `index.html` in a modern browser.
+3. Select **Start game** and use the arrow keys or WASD.
 
-> This repository is currently a project placeholder. The playable source code will be added here when the project is developed further.
+No build tools or dependencies are required.
 
-## 👤 Author
+## Controls
 
-**Mughees ur Rehman** — [@TheMughees1](https://github.com/TheMughees1)
+| Action | Control |
+|---|---|
+| Move | Arrow keys / WASD |
+| Pause or resume | Spacebar or Pause button |
+| Restart | Restart button |
+| Mobile movement | On-screen arrow buttons |
+
+## Built with
+
+HTML5 · CSS3 · JavaScript · Canvas API
+
+## Author
+
+Mughees ur Rehman — [@TheMughees1](https://github.com/TheMughees1)
