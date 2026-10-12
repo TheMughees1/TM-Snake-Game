@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Play TM Snake, a clean browser Snake game built with vanilla JavaScript.">
+  <meta name="theme-color" content="#0b1220">
+  <title>TM Snake — Browser Game</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <main class="game-shell">
+    <header class="topbar">
+      <a class="brand" href="./" aria-label="TM Snake home"><span class="brand-mark">S</span><span>TM <b>Snake</b></span></a>
+      <span class="eyebrow">ARCADE CLASSIC</span>
+    </header>
+    <section class="intro">
+      <p class="eyebrow">FOCUS. MOVE. GROW.</p>
+      <h1>One more <span>round.</span></h1>
+      <p class="subtitle">Collect the glowing food, avoid the walls, and beat your best score.</p>
+    </section>
+    <section class="game-card" aria-label="Snake game">
+      <div class="stats">
+        <div><span class="stat-label">SCORE</span><strong id="score">000</strong></div>
+        <div><span class="stat-label">BEST</span><strong id="best">000</strong></div>
+      </div>
+      <div class="canvas-wrap"><canvas id="game" width="400" height="400" aria-label="Snake game board"></canvas>
+        <div class="overlay" id="overlay">
+          <div class="overlay-icon">▶</div>
+          <h2 id="overlay-title">Ready to play?</h2>
+          <p id="overlay-text">Use arrow keys or WASD to move.</p>
+          <button id="start-btn" class="primary-btn" type="button">Start game</button>
+        </div>
+      </div>
+      <div class="game-controls">
+        <p id="status" aria-live="polite">Press Start when you're ready.</p>
+        <button id="pause-btn" class="secondary-btn" type="button" disabled>Pause</button>
+        <button id="restart-btn" class="secondary-btn" type="button">Restart</button>
+      </div>
+      <div class="mobile-controls" aria-label="Touch controls">
+        <button type="button" data-dir="up" aria-label="Move up">↑</button>
+        <div><button type="button" data-dir="left" aria-label="Move left">←</button><button type="button" data-dir="down" aria-label="Move down">↓</button><button type="button" data-dir="right" aria-label="Move right">→</button></div>
+      </div>
+    </section>
+    <footer>Built with HTML, CSS & JavaScript <span>·</span> <a href="https://github.com/TheMughees1" target="_blank" rel="noopener noreferrer">TM Studio</a></footer>
+  </main>
+  <script src="script.js"></script>
+</body>
+</html>
