@@ -34,9 +34,10 @@
     {name:"Neon City", emoji:"🌃", desc:"The ultimate high-speed run",bg1:"#252052",bg2:"#0b1227",grid:"rgba(178,154,255,.15)",snake:"#d0a6ff",snake2:"#7b69ed",head:"#f4e6ff",food:"#ff6ac5",obstacles:10,pace:94}
   ];
 
-  let snake, food, obstacles, direction, nextDirection, score, timer;
+  let snake, food, specialFood, specialTicks, slowTicks, obstacles, direction, nextDirection, score, timer;
   let running = false, paused = false, ended = false, soundOn = true, audioContext = null, currentStage = 0, toastTimer;
-  let best = 0;
+  let best = 0, totalApples = 0, gamesPlayed = 0, stagesCleared = 0;
+  try { totalApples = Number(localStorage.getItem("tm-snake-apples")) || 0; gamesPlayed = Number(localStorage.getItem("tm-snake-games")) || 0; stagesCleared = Number(localStorage.getItem("tm-snake-stages")) || 0; } catch (_) {}
   try { best = Number(localStorage.getItem("tm-snake-best")) || 0; } catch (_) {}
   bestEl.textContent = formatScore(best);
 
@@ -80,9 +81,15 @@
     let candidate;
     do {
       candidate = {x:Math.floor(Math.random()*cells),y:Math.floor(Math.random()*cells)};
-    } while (snake.some(p=>p.x===candidate.x&&p.y===candidate.y) || (obstacles||[]).some(p=>p.x===candidate.x&&p.y===candidate.y));
+    } while (snake.some(p=>p.x===candidate.x&&p.y===candidate.y) || (obstacles||[]).some(p=>p.x===candidate.x&&p.y===candidate.y) || (specialFood&&specialFood.x===candidate.x&&specialFood.y===candidate.y));
     return candidate;
   }
+  function spawnSpecialFood() {
+    specialFood = {...randomFreeCell(), type: Math.random() < 0.65 ? "gold" : "slow"};
+    specialTicks = 35;
+    status.innerHTML = '<span class="status-dot"></span> A special item appeared — grab it!';
+  }
+  function saveStat(key, value) { try { localStorage.setItem(key, String(value)); } catch (_) {} }
   function buildObstacles() {
     obstacles = [];
     const desired = stages[currentStage].obstacles;
@@ -130,6 +137,7 @@
     snake = [{x:9,y:10},{x:8,y:10},{x:7,y:10}];
     direction = {x:1,y:0}; nextDirection = {x:1,y:0};
     score = 0; currentStage = 0; running = false; paused = false; ended = false;
+    specialFood = null; specialTicks = 0; slowTicks = 0;
     obstacles = []; buildObstacles(); food = randomFreeCell();
     scoreEl.textContent = formatScore(score);
     pauseBtn.disabled = true; pauseBtn.textContent = "Pause";
@@ -147,6 +155,7 @@
   function start() {
     if (running) return;
     if (ended) reset();
+    if (!paused) { gamesPlayed++; saveStat("tm-snake-games", gamesPlayed); }
     running = true; paused = false; ended = false;
     hideOverlay(); pauseBtn.disabled = false; pauseBtn.textContent = "Pause";
     status.innerHTML = '<span class="status-dot"></span> Exploring ' + stages[currentStage].name;
@@ -156,7 +165,7 @@
   function tickLoop() {
     clearInterval(timer);
     const pace = stages[currentStage].pace;
-    timer = setInterval(tick,Math.max(65,pace-Math.min(score%applesPerStage,4)*3));
+    timer = setInterval(tick, slowTicks > 0 ? Math.max(145, pace + 45) : Math.max(65,pace-Math.min(score%applesPerStage,4)*3));
   }
   function pause() {
     if (!running) return;
@@ -177,14 +186,31 @@
     direction = nextDirection;
     const head = {x:snake[0].x+direction.x,y:snake[0].y+direction.y};
     const eating = head.x===food.x&&head.y===food.y;
+    const eatingSpecial = !!specialFood && head.x===specialFood.x && head.y===specialFood.y;
     const body = eating ? snake : snake.slice(0,-1);
     const hitWall = head.x<0||head.y<0||head.x>=cells||head.y>=cells;
     const hitBody = body.some(p=>p.x===head.x&&p.y===head.y);
     const hitObstacle = obstacles.some(p=>p.x===head.x&&p.y===head.y);
     if (hitWall||hitBody||hitObstacle) return finish();
     snake.unshift(head);
+    if (specialTicks > 0) { specialTicks--; if (specialTicks === 0) specialFood = null; }
+    if (slowTicks > 0) { slowTicks--; if (slowTicks === 0) tickLoop(); }
+    if (eatingSpecial) {
+      const item = specialFood.type; specialFood = null; specialTicks = 0;
+      if (item === "gold") {
+        score += 5; scoreEl.textContent = formatScore(score);
+        status.innerHTML = '<span class="status-dot"></span> Golden Apple collected: +5 bonus points!';
+        playTone(980,.16,"sine",.05,420);
+      } else {
+        slowTicks = 30; status.innerHTML = '<span class="status-dot"></span> Slow Time active — easier steering for a short while!';
+        playTone(430,.14,"triangle",.04, -180);
+      }
+      if (score > best) { best = score; bestEl.textContent = formatScore(best); saveStat("tm-snake-best", best); }
+      tickLoop();
+    }
     if (eating) {
-      score++; scoreEl.textContent = formatScore(score);
+      score++; totalApples++; saveStat("tm-snake-apples", totalApples); scoreEl.textContent = formatScore(score);
+      if (score % 4 === 0 && !specialFood) spawnSpecialFood();
       if (score>best) {
         best=score; bestEl.textContent=formatScore(best);
         try { localStorage.setItem("tm-snake-best",String(best)); } catch (_) {}
@@ -192,6 +218,7 @@
       playEat();
       if (score % applesPerStage === 0) {
         if (currentStage < stages.length-1) {
+          stagesCleared++; saveStat("tm-snake-stages", stagesCleared);
           currentStage++;
           buildObstacles();
           food = randomFreeCell();
@@ -262,6 +289,16 @@
     }
   }
   function drawFood() {
+    if (specialFood) {
+      const sx=(specialFood.x+.5)*cellSize, sy=(specialFood.y+.5)*cellSize;
+      ctx.save();
+      const gold = specialFood.type === "gold";
+      ctx.shadowColor = gold ? "#ffd166" : "#78dfff"; ctx.shadowBlur = 17;
+      ctx.fillStyle = gold ? "#ffd166" : "#78dfff";
+      ctx.beginPath(); ctx.arc(sx,sy,7+Math.sin(Date.now()/100)*1.2,0,Math.PI*2); ctx.fill();
+      ctx.shadowBlur=0; ctx.fillStyle="#152033"; ctx.font="bold 10px sans-serif"; ctx.textAlign="center"; ctx.textBaseline="middle"; ctx.fillText(gold?"★":"⌛",sx,sy+.5);
+      ctx.restore();
+    }
     const x=(food.x+.5)*cellSize,y=(food.y+.52)*cellSize;
     const stage=stages[currentStage];
     ctx.save();ctx.shadowColor=stage.food;ctx.shadowBlur=14;
