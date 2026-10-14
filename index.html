@@ -25,6 +25,7 @@
         <div class="level-stat"><span class="stat-label">CURRENT STAGE</span><strong id="stage-name">Meadow</strong><small id="stage-progress">Stage 1 · 0/5 apples</small></div>
         <div class="best-stat"><span class="stat-label">PERSONAL BEST</span><strong id="best">000</strong></div>
       </div>
+      <div class="difficulty-row"><label for="difficulty">DIFFICULTY</label><select id="difficulty"><option value="easy">Easy</option><option value="normal" selected>Normal</option><option value="hard">Hard</option></select><span>Mode: <b id="difficulty-label">Normal</b></span></div>
       <div class="stage-banner" id="stage-banner"><span id="stage-emoji">🌿</span><div><strong id="banner-name">Meadow</strong><small id="banner-desc">A calm place to begin</small></div><span class="stage-pill" id="stage-pill">STAGE 01</span></div>
       <div class="canvas-wrap">
         <canvas id="game" width="400" height="400" aria-label="Snake game board"></canvas>
@@ -51,7 +52,7 @@
         <button type="button" data-dir="up" aria-label="Move up">↑</button>
         <div><button type="button" data-dir="left" aria-label="Move left">←</button><button type="button" data-dir="down" aria-label="Move down">↓</button><button type="button" data-dir="right" aria-label="Move right">→</button></div>
       </div>
-      <p class="hint">KEYBOARD <kbd>W</kbd><kbd>A</kbd><kbd>S</kbd><kbd>D</kbd> or <kbd>↑</kbd><kbd>←</kbd><kbd>↓</kbd><kbd>→</kbd><span>SPACE to pause</span></p>
+      <p class="hint">KEYBOARD <kbd>W</kbd><kbd>A</kbd><kbd>S</kbd><kbd>D</kbd> or <kbd>↑</kbd><kbd>←</kbd><kbd>↓</kbd><kbd>→</kbd><span>SPACE / ESC to pause · Swipe on board</span></p>
     </section>
     <section class="stage-guide">
       <p class="eyebrow">THE JOURNEY</p>
