@@ -3,35 +3,41 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="Play TM Snake, a polished, responsive browser Snake game with sound effects.">
+  <meta name="description" content="Play TM Snake, a multi-stage browser Snake adventure with dynamic environments, obstacles, and arcade sound effects.">
   <meta name="theme-color" content="#0b1220">
-  <title>TM Snake — Arcade Edition</title>
+  <title>TM Snake — World Tour</title>
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
   <main class="game-shell">
     <header class="topbar">
       <a class="brand" href="./" aria-label="TM Snake home"><span class="brand-mark">S</span><span>TM <b>Snake</b></span></a>
-      <span class="eyebrow">✦ ARCADE EDITION</span>
+      <span class="eyebrow">✦ WORLD TOUR</span>
     </header>
     <section class="intro">
-      <p class="eyebrow">FOCUS. MOVE. GROW.</p>
-      <h1>One more <span>round.</span></h1>
-      <p class="subtitle">Collect glowing energy, dodge the walls, and chase your personal best.</p>
+      <p class="eyebrow">EAT. EVOLVE. EXPLORE.</p>
+      <h1>A bigger <span>adventure.</span></h1>
+      <p class="subtitle">Travel through living landscapes, unlock new stages, and survive the growing challenge.</p>
     </section>
     <section class="game-card" aria-label="Snake game">
       <div class="stats">
         <div><span class="stat-label">YOUR SCORE</span><strong id="score">000</strong></div>
+        <div class="level-stat"><span class="stat-label">CURRENT STAGE</span><strong id="stage-name">Meadow</strong><small id="stage-progress">Stage 1 · 0/5 apples</small></div>
         <div class="best-stat"><span class="stat-label">PERSONAL BEST</span><strong id="best">000</strong></div>
       </div>
+      <div class="stage-banner" id="stage-banner"><span id="stage-emoji">🌿</span><div><strong id="banner-name">Meadow</strong><small id="banner-desc">A calm place to begin</small></div><span class="stage-pill" id="stage-pill">STAGE 01</span></div>
       <div class="canvas-wrap">
         <canvas id="game" width="400" height="400" aria-label="Snake game board"></canvas>
         <div class="overlay" id="overlay">
           <div class="overlay-icon">▶</div>
-          <h2 id="overlay-title">Ready to play?</h2>
-          <p id="overlay-text">Use arrow keys or WASD to move.</p>
-          <button id="start-btn" class="primary-btn" type="button">Start game <span>→</span></button>
+          <h2 id="overlay-title">Ready to explore?</h2>
+          <p id="overlay-text">Collect 5 apples to unlock the next landscape. Use arrows or WASD.</p>
+          <button id="start-btn" class="primary-btn" type="button">Start adventure <span>→</span></button>
         </div>
+        <div class="toast hidden" id="stage-toast" aria-live="polite"><span id="toast-emoji">🌵</span><strong id="toast-title">Stage unlocked!</strong><small id="toast-subtitle">The world is changing</small></div>
+      </div>
+      <div class="stage-track" id="stage-track" aria-label="Stage progress">
+        <span class="track-dot active" title="Meadow"></span><span class="track-dot" title="Desert"></span><span class="track-dot" title="Frost"></span><span class="track-dot" title="Volcano"></span><span class="track-dot" title="Neon City"></span>
       </div>
       <div class="game-controls">
         <p id="status" aria-live="polite"><span class="status-dot"></span> Press Start when you're ready.</p>
@@ -44,6 +50,16 @@
         <div><button type="button" data-dir="left" aria-label="Move left">←</button><button type="button" data-dir="down" aria-label="Move down">↓</button><button type="button" data-dir="right" aria-label="Move right">→</button></div>
       </div>
       <p class="hint">KEYBOARD <kbd>W</kbd><kbd>A</kbd><kbd>S</kbd><kbd>D</kbd> or <kbd>↑</kbd><kbd>←</kbd><kbd>↓</kbd><kbd>→</kbd><span>SPACE to pause</span></p>
+    </section>
+    <section class="stage-guide">
+      <p class="eyebrow">THE JOURNEY</p>
+      <div class="stage-guide-grid">
+        <div><span>🌿</span><strong>01 Meadow</strong><small>Learn the path</small></div>
+        <div><span>🌵</span><strong>02 Desert</strong><small>Watch for rocks</small></div>
+        <div><span>❄️</span><strong>03 Frost</strong><small>Ice-cold focus</small></div>
+        <div><span>🌋</span><strong>04 Volcano</strong><small>Navigate the ruins</small></div>
+        <div><span>🌃</span><strong>05 Neon City</strong><small>Final challenge</small></div>
+      </div>
     </section>
     <footer>Designed & built by <a href="https://github.com/TheMughees1" target="_blank" rel="noopener noreferrer">TM Studio</a><span>·</span> HTML, CSS & JavaScript</footer>
   </main>
