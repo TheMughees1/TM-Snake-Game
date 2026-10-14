@@ -20,6 +20,8 @@
   const pauseBtn = document.getElementById("pause-btn");
   const restartBtn = document.getElementById("restart-btn");
   const soundBtn = document.getElementById("sound-btn");
+  const difficultySelect = document.getElementById("difficulty");
+  const difficultyLabel = document.getElementById("difficulty-label");
   const status = document.getElementById("status");
   const toast = document.getElementById("stage-toast");
   const toastEmoji = document.getElementById("toast-emoji");
@@ -39,6 +41,7 @@
 
   let snake, food, specialFood, specialTicks, slowTicks, obstacles, direction, nextDirection, score, stageApples, timer;
   let running = false, paused = false, ended = false, soundOn = true, audioContext = null, currentStage = 0, toastTimer;
+  let difficulty = "normal";
   let best = 0, totalApples = 0, gamesPlayed = 0, stagesCleared = 0;
   try { totalApples = Number(localStorage.getItem("tm-snake-apples")) || 0; gamesPlayed = Number(localStorage.getItem("tm-snake-games")) || 0; stagesCleared = Number(localStorage.getItem("tm-snake-stages")) || 0; } catch (_) {}
   try { best = Number(localStorage.getItem("tm-snake-best")) || 0; } catch (_) {}
@@ -101,7 +104,8 @@
   function saveStat(key, value) { try { localStorage.setItem(key, String(value)); } catch (_) {} }
   function buildObstacles() {
     obstacles = [];
-    const desired = stages[currentStage].obstacles;
+    const base = stages[currentStage].obstacles;
+    const desired = difficulty === "hard" ? Math.min(15, base + 3) : difficulty === "easy" ? Math.max(0, base - 2) : base;
     let attempts = 0;
     while (obstacles.length < desired && attempts < 1200) {
       attempts++;
@@ -143,6 +147,8 @@
   }
   function reset() {
     clearInterval(timer); clearTimeout(toastTimer); toast.classList.add("hidden");
+    difficulty = difficultySelect.value || "normal";
+    difficultyLabel.textContent = difficulty.charAt(0).toUpperCase() + difficulty.slice(1);
     snake = [{x:9,y:10},{x:8,y:10},{x:7,y:10}];
     direction = {x:1,y:0}; nextDirection = {x:1,y:0};
     score = 0; stageApples = 0; currentStage = 0; running = false; paused = false; ended = false;
@@ -173,8 +179,8 @@
   }
   function tickLoop() {
     clearInterval(timer);
-    const pace = stages[currentStage].pace;
-    timer = setInterval(tick, slowTicks > 0 ? Math.max(145, pace + 45) : Math.max(65,pace-Math.min(score%applesPerStage,4)*3));
+    const pace = stages[currentStage].pace * (difficulty === "easy" ? 1.22 : difficulty === "hard" ? 0.78 : 1);
+    timer = setInterval(tick, slowTicks > 0 ? Math.max(145, pace + 45) : Math.max(55,pace-Math.min(stageApples,4)*3));
   }
   function pause() {
     if (!running) return;
@@ -357,11 +363,26 @@
     const keys={ArrowUp:"up",w:"up",W:"up",ArrowDown:"down",s:"down",S:"down",ArrowLeft:"left",a:"left",A:"left",ArrowRight:"right",d:"right",D:"right"};
     if(keys[event.key]){event.preventDefault();changeDirection(keys[event.key]);}
     if(event.key===" "){event.preventDefault();if(running)pause();else start();}
+    if(event.key==="Escape" && running) pause();
   });
   document.querySelectorAll("[data-dir]").forEach(button=>button.addEventListener("click",()=>{
     changeDirection(button.dataset.dir);
     if(!running&&!ended)start();
   }));
+  let touchStartX = 0, touchStartY = 0;
+  canvas.addEventListener("touchstart", event => {
+    const touch = event.changedTouches[0]; touchStartX = touch.clientX; touchStartY = touch.clientY;
+  }, {passive:true});
+  canvas.addEventListener("touchend", event => {
+    const touch = event.changedTouches[0];
+    const dx = touch.clientX - touchStartX, dy = touch.clientY - touchStartY;
+    if (Math.max(Math.abs(dx), Math.abs(dy)) < 18) return;
+    changeDirection(Math.abs(dx) > Math.abs(dy) ? (dx > 0 ? "right" : "left") : (dy > 0 ? "down" : "up"));
+    if (!running && !ended) start();
+  }, {passive:true});
+  difficultySelect.addEventListener("change", () => {
+    if (!running && !paused) { difficulty = difficultySelect.value; reset(); }
+  });
   startBtn.addEventListener("click",start);
   pauseBtn.addEventListener("click",()=>running?pause():start());
   restartBtn.addEventListener("click",()=>{reset();playTone(440,.07,"sine",.025);});
