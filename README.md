@@ -69,3 +69,9 @@ More projects: [GitHub Profile](https://github.com/TheMughees1)
 - Time Orb: temporarily slows the game for easier steering.
 - Special items expire if you do not collect them in time.
 - Personal best, total normal apples, games played, and stages cleared are stored locally in your browser when storage is available.
+
+
+## Difficulty and mobile controls
+- Choose Easy, Normal, or Hard before starting a run. Difficulty changes snake speed and stage obstacle counts.
+- On touch devices, swipe directly on the game board to steer. The on-screen directional buttons remain available.
+- Press Space or Escape to pause while playing.
