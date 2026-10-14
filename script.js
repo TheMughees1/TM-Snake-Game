@@ -3,6 +3,9 @@
   const ctx = canvas.getContext("2d");
   const scoreEl = document.getElementById("score");
   const bestEl = document.getElementById("best");
+  const gamesPlayedEl = document.getElementById("games-played");
+  const totalApplesEl = document.getElementById("total-apples");
+  const stagesClearedEl = document.getElementById("stages-cleared");
   const stageNameEl = document.getElementById("stage-name");
   const stageProgressEl = document.getElementById("stage-progress");
   const bannerNameEl = document.getElementById("banner-name");
@@ -40,6 +43,12 @@
   try { totalApples = Number(localStorage.getItem("tm-snake-apples")) || 0; gamesPlayed = Number(localStorage.getItem("tm-snake-games")) || 0; stagesCleared = Number(localStorage.getItem("tm-snake-stages")) || 0; } catch (_) {}
   try { best = Number(localStorage.getItem("tm-snake-best")) || 0; } catch (_) {}
   bestEl.textContent = formatScore(best);
+  function updateLifetimeStats() {
+    gamesPlayedEl.textContent = gamesPlayed;
+    totalApplesEl.textContent = totalApples;
+    stagesClearedEl.textContent = stagesCleared;
+  }
+  updateLifetimeStats();
 
   function formatScore(value) { return String(value).padStart(3, "0"); }
 
@@ -155,7 +164,7 @@
   function start() {
     if (running) return;
     if (ended) reset();
-    if (!paused) { gamesPlayed++; saveStat("tm-snake-games", gamesPlayed); }
+    if (!paused) { gamesPlayed++; saveStat("tm-snake-games", gamesPlayed); updateLifetimeStats(); }
     running = true; paused = false; ended = false;
     hideOverlay(); pauseBtn.disabled = false; pauseBtn.textContent = "Pause";
     status.innerHTML = '<span class="status-dot"></span> Exploring ' + stages[currentStage].name;
@@ -209,7 +218,7 @@
       tickLoop();
     }
     if (eating) {
-      score++; stageApples++; totalApples++; saveStat("tm-snake-apples", totalApples); scoreEl.textContent = formatScore(score);
+      score++; stageApples++; totalApples++; saveStat("tm-snake-apples", totalApples); updateLifetimeStats(); scoreEl.textContent = formatScore(score);
       if (score % 4 === 0 && !specialFood) spawnSpecialFood();
       if (score>best) {
         best=score; bestEl.textContent=formatScore(best);
@@ -219,7 +228,7 @@
       if (stageApples >= applesPerStage) {
         stageApples = 0;
         if (currentStage < stages.length-1) {
-          stagesCleared++; saveStat("tm-snake-stages", stagesCleared);
+          stagesCleared++; saveStat("tm-snake-stages", stagesCleared); updateLifetimeStats();
           currentStage++;
           buildObstacles();
           food = randomFreeCell();
