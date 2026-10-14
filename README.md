@@ -1,20 +1,35 @@
-# TM Snake 🐍
+# TM Snake — World Tour 🐍🌍
 
-A polished, responsive arcade-style Snake game built with **HTML, CSS, JavaScript, and Canvas** — no frameworks, packages, or external audio files required.
+A responsive, multi-stage Snake adventure built with **HTML, CSS, JavaScript, Canvas, and Web Audio API**. Explore five themed worlds, dodge biome-specific obstacles, and unlock each new stage by collecting apples.
 
 🎮 **[Play TM Snake](https://themughees1.github.io/TM-Snake-Game/)**
 
 ## ✨ Features
 
-- Smooth keyboard and mobile touch controls
-- Arcade sound effects for eating, starting, pausing, and game over
+- **Five themed stages:** Meadow, Desert, Frost, Volcano, and Neon City
+- Stage-specific color palettes, ground textures, food styling, and snake appearance
+- Increasing speed as you progress through the worlds
+- New obstacles appear in later stages: desert rocks, ice formations, volcanic ruins, and neon barriers
+- Collect five apples in each stage to unlock the next world
+- Victory screen after conquering all five stages
+- Synthesized sound effects for eating, starting, pausing, stage unlocks, and game over
 - Sound on/off toggle
-- Live score and personal-best tracking
-- Best score saved locally in your browser
-- Pause, resume, restart, and game-over states
-- Responsive dark UI with neon-inspired visuals
-- Increasing challenge as your score grows
-- Lightweight vanilla JavaScript — no dependencies
+- Live score and personal best saved locally in your browser
+- Keyboard and mobile touch controls
+- Pause, resume, restart, and responsive layout
+- No frameworks, packages, or external audio assets required
+
+## 🗺️ The stages
+
+| Stage | World | Challenge |
+|---|---|---|
+| 1 | 🌿 Meadow | Learn the route |
+| 2 | 🌵 Desert | Avoid rock formations |
+| 3 | ❄️ Frost | Navigate icy obstacles |
+| 4 | 🌋 Volcano | Dodge volcanic ruins |
+| 5 | 🌃 Neon City | Survive the fastest, densest arena |
+
+Collect **5 apples per stage**. Hitting a wall, your own tail, or an obstacle ends the run.
 
 ## 🎮 Controls
 
@@ -29,10 +44,10 @@ A polished, responsive arcade-style Snake game built with **HTML, CSS, JavaScrip
 ## 🚀 Run locally
 
 1. Clone or download this repository.
-2. Open `index.html` in a modern browser.
-3. Press **Start game** and play.
+2. Open \`index.html\` in a modern browser.
+3. Press **Start adventure**.
 
-No build step or installation is needed. Sound is generated in the browser using the Web Audio API and starts after a user interaction.
+No build step or installation is needed. Sound is synthesized in the browser using the Web Audio API after a user interaction.
 
 ## 🧰 Built with
 
