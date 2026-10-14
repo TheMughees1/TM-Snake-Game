@@ -62,3 +62,10 @@ No build step or installation is needed. Sound is synthesized in the browser usi
 **Mughees ur Rehman** — [@TheMughees1](https://github.com/TheMughees1)
 
 More projects: [GitHub Profile](https://github.com/TheMughees1)
+
+
+## Special items and personal stats
+- Golden Apple: bonus +5 points.
+- Time Orb: temporarily slows the game for easier steering.
+- Special items expire if you do not collect them in time.
+- Personal best, total normal apples, games played, and stages cleared are stored locally in your browser when storage is available.
