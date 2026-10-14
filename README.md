@@ -1,37 +1,49 @@
-# TM Snake
+# TM Snake 🐍
 
-A playable, responsive browser Snake game built with vanilla HTML, CSS, and JavaScript.
+A polished, responsive arcade-style Snake game built with **HTML, CSS, JavaScript, and Canvas** — no frameworks, packages, or external audio files required.
 
-## Features
+🎮 **[Play TM Snake](https://themughees1.github.io/TM-Snake-Game/)**
 
-- Keyboard controls: arrow keys or WASD
-- Touch-friendly direction controls for mobile
-- Score and best-score tracking
+## ✨ Features
+
+- Smooth keyboard and mobile touch controls
+- Arcade sound effects for eating, starting, pausing, and game over
+- Sound on/off toggle
+- Live score and personal-best tracking
+- Best score saved locally in your browser
 - Pause, resume, restart, and game-over states
-- Responsive board with a clean dark interface
-- Best score saved locally in the browser when storage is available
+- Responsive dark UI with neon-inspired visuals
+- Increasing challenge as your score grows
+- Lightweight vanilla JavaScript — no dependencies
 
-## Run locally
-
-1. Download or clone this repository.
-2. Open `index.html` in a modern browser.
-3. Select **Start game** and use the arrow keys or WASD.
-
-No build tools or dependencies are required.
-
-## Controls
+## 🎮 Controls
 
 | Action | Control |
 |---|---|
-| Move | Arrow keys / WASD |
-| Pause or resume | Spacebar or Pause button |
+| Move | Arrow keys or W / A / S / D |
+| Pause / Resume | Spacebar or Pause button |
 | Restart | Restart button |
-| Mobile movement | On-screen arrow buttons |
+| Toggle sound | Sound on/off button |
+| Mobile movement | On-screen directional buttons |
 
-## Built with
+## 🚀 Run locally
 
-HTML5 · CSS3 · JavaScript · Canvas API
+1. Clone or download this repository.
+2. Open `index.html` in a modern browser.
+3. Press **Start game** and play.
 
-## Author
+No build step or installation is needed. Sound is generated in the browser using the Web Audio API and starts after a user interaction.
 
-Mughees ur Rehman — [@TheMughees1](https://github.com/TheMughees1)
+## 🧰 Built with
+
+- HTML5
+- CSS3
+- JavaScript
+- Canvas API
+- Web Audio API
+
+## 👨‍💻 Author
+
+**Mughees ur Rehman** — [@TheMughees1](https://github.com/TheMughees1)
+
+More projects: [GitHub Profile](https://github.com/TheMughees1)
