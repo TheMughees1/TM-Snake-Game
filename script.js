@@ -216,15 +216,21 @@
         score += 5; scoreEl.textContent = formatScore(score);
         status.innerHTML = '<span class="status-dot"></span> Golden Apple collected: +5 bonus points!';
         playTone(980,.16,"sine",.05,420);
-      } else {
+      } else if (item === "slow") {
         slowTicks = 30; status.innerHTML = '<span class="status-dot"></span> Slow Time active — easier steering for a short while!';
         playTone(430,.14,"triangle",.04, -180);
+      } else {
+        shieldActive = true; shieldCollected = true;
+        status.innerHTML = '<span class="status-dot"></span> Shield activated — it will block your next collision!';
+        playTone(760,.18,"sine",.05,320);
       }
+      updateAchievements();
       if (score > best) { best = score; bestEl.textContent = formatScore(best); saveStat("tm-snake-best", best); }
       tickLoop();
     }
     if (eating) {
-      score++; stageApples++; totalApples++; saveStat("tm-snake-apples", totalApples); updateLifetimeStats(); scoreEl.textContent = formatScore(score);
+      score++; stageApples++; totalApples++; saveStat("tm-snake-apples", totalApples); updateLifetimeStats(); updateSkinOptions(); scoreEl.textContent = formatScore(score);
+      updateAchievements();
       if (score % 4 === 0 && !specialFood) spawnSpecialFood();
       if (score>best) {
         best=score; bestEl.textContent=formatScore(best);
