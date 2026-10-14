@@ -34,7 +34,7 @@
     {name:"Neon City", emoji:"🌃", desc:"The ultimate high-speed run",bg1:"#252052",bg2:"#0b1227",grid:"rgba(178,154,255,.15)",snake:"#d0a6ff",snake2:"#7b69ed",head:"#f4e6ff",food:"#ff6ac5",obstacles:10,pace:94}
   ];
 
-  let snake, food, specialFood, specialTicks, slowTicks, obstacles, direction, nextDirection, score, timer;
+  let snake, food, specialFood, specialTicks, slowTicks, obstacles, direction, nextDirection, score, stageApples, timer;
   let running = false, paused = false, ended = false, soundOn = true, audioContext = null, currentStage = 0, toastTimer;
   let best = 0, totalApples = 0, gamesPlayed = 0, stagesCleared = 0;
   try { totalApples = Number(localStorage.getItem("tm-snake-apples")) || 0; gamesPlayed = Number(localStorage.getItem("tm-snake-games")) || 0; stagesCleared = Number(localStorage.getItem("tm-snake-stages")) || 0; } catch (_) {}
@@ -110,8 +110,8 @@
     stageEmojiEl.textContent = stage.emoji;
     stagePillEl.textContent = "STAGE " + String(currentStage+1).padStart(2,"0");
     stageProgressEl.textContent = currentStage === stages.length-1
-      ? "Final stage · " + (score % applesPerStage) + "/" + applesPerStage + " apples"
-      : "Stage " + (currentStage+1) + " · " + (score % applesPerStage) + "/" + applesPerStage + " apples";
+      ? "Final stage · " + stageApples + "/" + applesPerStage + " apples"
+      : "Stage " + (currentStage+1) + " · " + stageApples + "/" + applesPerStage + " apples";
     stageTrack.querySelectorAll(".track-dot").forEach((dot,i)=>{
       dot.classList.toggle("active",i===currentStage);
       dot.classList.toggle("complete",i<currentStage);
@@ -136,7 +136,7 @@
     clearInterval(timer); clearTimeout(toastTimer); toast.classList.add("hidden");
     snake = [{x:9,y:10},{x:8,y:10},{x:7,y:10}];
     direction = {x:1,y:0}; nextDirection = {x:1,y:0};
-    score = 0; currentStage = 0; running = false; paused = false; ended = false;
+    score = 0; stageApples = 0; currentStage = 0; running = false; paused = false; ended = false;
     specialFood = null; specialTicks = 0; slowTicks = 0;
     obstacles = []; buildObstacles(); food = randomFreeCell();
     scoreEl.textContent = formatScore(score);
@@ -209,14 +209,15 @@
       tickLoop();
     }
     if (eating) {
-      score++; totalApples++; saveStat("tm-snake-apples", totalApples); scoreEl.textContent = formatScore(score);
+      score++; stageApples++; totalApples++; saveStat("tm-snake-apples", totalApples); scoreEl.textContent = formatScore(score);
       if (score % 4 === 0 && !specialFood) spawnSpecialFood();
       if (score>best) {
         best=score; bestEl.textContent=formatScore(best);
         try { localStorage.setItem("tm-snake-best",String(best)); } catch (_) {}
       }
       playEat();
-      if (score % applesPerStage === 0) {
+      if (stageApples >= applesPerStage) {
+        stageApples = 0;
         if (currentStage < stages.length-1) {
           stagesCleared++; saveStat("tm-snake-stages", stagesCleared);
           currentStage++;
