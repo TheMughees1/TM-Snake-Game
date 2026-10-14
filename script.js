@@ -198,8 +198,9 @@
           setStageUI(); showStageToast(); playStageUp();
           status.innerHTML = '<span class="status-dot"></span> New world unlocked: '+stages[currentStage].name;
         } else {
-          // Keep the final stage going with a steadily increasing pace.
-          status.innerHTML = '<span class="status-dot"></span> Final stage — keep surviving!';
+          draw();
+          finish(true);
+          return;
         }
       } else food = randomFreeCell();
       setStageUI(); tickLoop();
