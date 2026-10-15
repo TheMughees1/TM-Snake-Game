@@ -1,25 +1,29 @@
 # TM Snake — World Tour 🐍🌍
 
-A responsive, multi-stage Snake adventure built with **HTML, CSS, JavaScript, Canvas, and Web Audio API**. Explore five themed worlds, dodge biome-specific obstacles, and unlock each new stage by collecting apples.
+A responsive, multi-stage Snake adventure built with **HTML, CSS, JavaScript, Canvas, and the Web Audio API**. Explore five themed worlds, avoid stage-specific obstacles, and unlock new stages as you collect apples.
 
-🎮 **[Play TM Snake](https://themughees1.github.io/TM-Snake-Game/)**
+<p align="center">
+  <a href="https://themughees1.github.io/TM-Snake-Game/"><strong>🎮 Play the Live Game</strong></a>
+  ·
+  <a href="https://github.com/TheMughees1/TM-Snake-Game"><strong>View Source Code</strong></a>
+</p>
 
-## ✨ Features
+## Features
 
-- **Five themed stages:** Meadow, Desert, Frost, Volcano, and Neon City
-- Stage-specific color palettes, ground textures, food styling, and snake appearance
-- Increasing speed as you progress through the worlds
-- New obstacles appear in later stages: desert rocks, ice formations, volcanic ruins, and neon barriers
-- Collect five apples in each stage to unlock the next world
-- Victory screen after conquering all five stages
-- Synthesized sound effects for eating, starting, pausing, stage unlocks, and game over
-- Sound on/off toggle
-- Live score and personal best saved locally in your browser
-- Keyboard and mobile touch controls
-- Pause, resume, restart, and responsive layout
-- No frameworks, packages, or external audio assets required
+- **Five themed worlds:** Meadow, Desert, Frost, Volcano, and Neon City
+- **Progressive challenge:** speed increases as you advance
+- **Stage obstacles:** rocks, ice formations, volcanic ruins, and neon barriers
+- **Stage progression:** collect five apples in each stage to unlock the next world
+- **Difficulty settings:** Easy, Normal, and Hard
+- **Special items:** Golden Apple bonus points and a Time Orb that temporarily slows gameplay
+- **Sound effects:** browser-synthesized audio with an on/off toggle
+- **Score and stats:** live score, personal best, games played, apples collected, and stages cleared
+- **Flexible controls:** keyboard, on-screen directional buttons, and touch swipes
+- **Game controls:** pause, resume, restart, and victory/game-over screens
+- **Responsive layout:** playable on desktop and mobile
+- **No external dependencies:** no framework, package installation, or external audio assets required
 
-## 🗺️ The stages
+## Worlds
 
 | Stage | World | Challenge |
 |---|---|---|
@@ -29,27 +33,31 @@ A responsive, multi-stage Snake adventure built with **HTML, CSS, JavaScript, Ca
 | 4 | 🌋 Volcano | Dodge volcanic ruins |
 | 5 | 🌃 Neon City | Survive the fastest, densest arena |
 
-Collect **5 apples per stage**. Hitting a wall, your own tail, or an obstacle ends the run.
+Collect **five apples per stage** to progress. Colliding with a wall, your own tail, or an obstacle ends the run.
 
-## 🎮 Controls
+## Controls
 
 | Action | Control |
 |---|---|
 | Move | Arrow keys or W / A / S / D |
-| Pause / Resume | Spacebar or Pause button |
+| Pause / resume | Spacebar, Escape, or Pause button |
 | Restart | Restart button |
 | Toggle sound | Sound on/off button |
-| Mobile movement | On-screen directional buttons |
+| Mobile movement | Swipe on the board or use on-screen directional buttons |
 
-## 🚀 Run locally
+## Run Locally
 
 1. Clone or download this repository.
-2. Open \`index.html\` in a modern browser.
+2. Open `index.html` in a modern browser.
 3. Press **Start adventure**.
 
-No build step or installation is needed. Sound is synthesized in the browser using the Web Audio API after a user interaction.
+No build step or installation is needed. Sound is synthesized in the browser through the Web Audio API after user interaction.
 
-## 🧰 Built with
+## Browser Storage
+
+Personal best and game statistics are saved locally in your browser when storage is available. They do not automatically sync between devices.
+
+## Built With
 
 - HTML5
 - CSS3
@@ -57,21 +65,10 @@ No build step or installation is needed. Sound is synthesized in the browser usi
 - Canvas API
 - Web Audio API
 
-## 👨‍💻 Author
+## Author
 
-**Mughees ur Rehman** — [@TheMughees1](https://github.com/TheMughees1)
+**Mughees ur Rehman** · [@TheMughees1](https://github.com/TheMughees1)
 
 More projects: [GitHub Profile](https://github.com/TheMughees1)
 
-
-## Special items and personal stats
-- Golden Apple: bonus +5 points.
-- Time Orb: temporarily slows the game for easier steering.
-- Special items expire if you do not collect them in time.
-- Personal best, total normal apples, games played, and stages cleared are stored locally in your browser when storage is available.
-
-
-## Difficulty and mobile controls
-- Choose Easy, Normal, or Hard before starting a run. Difficulty changes snake speed and stage obstacle counts.
-- On touch devices, swipe directly on the game board to steer. The on-screen directional buttons remain available.
-- Press Space or Escape to pause while playing.
+If you enjoy the game, consider giving the repository a ⭐.
